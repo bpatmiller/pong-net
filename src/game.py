@@ -46,7 +46,7 @@ class Game(pyglet.window.Window):
             self.paddle_right.score += 1
 
         player = self.ball.check_collision(
-            [self.paddle_left, self.paddle_left])
+            [self.paddle_left, self.paddle_right])
         if player:
             self.ball.collide_paddle()
         if self.ball.check_oob(settings.WINDOW_HEIGHT):
