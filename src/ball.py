@@ -7,11 +7,9 @@ class Ball(msprite.MSprite):
     vert_speed = 1.5
 
     def collide_paddle(self):
-        print("collide paddle")
         self.horiz_speed = - self.horiz_speed
 
     def collide_wall(self):
-        print("collide wall")
         self.vert_speed = -self.vert_speed
 
     def check_score(self):
@@ -19,13 +17,13 @@ class Ball(msprite.MSprite):
             self.center()
             self.horiz_speed = - self.horiz_speed
             self.vert_speed = - self.vert_speed
-            print("right score")
+            print("right player scored")
             return -1
         if self.x > settings.WINDOW_WIDTH:
             self.center()
             self.horiz_speed = - self.horiz_speed
             self.vert_speed = - self.vert_speed
-            print("left score")
+            print("left player scored")
             return 1
         return 0
 
