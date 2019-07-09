@@ -7,7 +7,7 @@ class GameWindow(pyglet.window.Window):
 
     def __init__(self, *args, **kwargs):
         pyglet.window.Window.__init__(self, *args, **kwargs)
-        self.game = game.Game(multi=False)
+        self.game = game.Game()
         self.keys = pyglet.window.key.KeyStateHandler()
         self.push_handlers(self.keys)
     

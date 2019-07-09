@@ -1,13 +1,32 @@
 import pyglet
 import settings
 
+
 class MSprite(pyglet.sprite.Sprite):
     image = None
-    
-    def __init__(self, image, x=0, y=0, blend_src=770, blend_dest=771, batch=None, group=None, usage='dynamic'):
+
+    def __init__(
+            self,
+            image,
+            x=0,
+            y=0,
+            blend_src=770,
+            blend_dest=771,
+            batch=None,
+            group=None,
+            usage='dynamic'):
         """ create pyglet sprite with default options
         """
-        pyglet.sprite.Sprite.__init__(self, image, x, y, blend_src, blend_dest, batch, group, usage)
+        pyglet.sprite.Sprite.__init__(
+            self,
+            image,
+            x,
+            y,
+            blend_src,
+            blend_dest,
+            batch,
+            group,
+            usage)
         self.image = image
 
     @property
@@ -35,18 +54,18 @@ class MSprite(pyglet.sprite.Sprite):
 
     def center(self):
         self.x = settings.WINDOW_WIDTH / 2
-        self.y = settings.WINDOW_HEIGHT/2
+        self.y = settings.WINDOW_HEIGHT / 2
 
     def center_x(self):
         self.x = settings.WINDOW_WIDTH / 2
 
     def center_y(self):
-        self.y = settings.WINDOW_HEIGHT/2
-
+        self.y = settings.WINDOW_HEIGHT / 2
 
     def check_collision(self, candidates):
         for sp in candidates:
-            if (self.bottom_bounds <= sp.top_bounds and self.top_bounds>=sp.bottom_bounds and self.right_bounds>=sp.left_bounds and self.left_bounds<=sp.right_bounds):
+            if (self.bottom_bounds <= sp.top_bounds and self.top_bounds >=
+                    sp.bottom_bounds and self.right_bounds >= sp.left_bounds and self.left_bounds <= sp.right_bounds):
                 return sp
 
     def check_oob(self, window_height):

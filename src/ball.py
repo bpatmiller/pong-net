@@ -1,6 +1,7 @@
 import msprite
 import settings
 
+
 class Ball(msprite.MSprite):
     horiz_speed = 2.0
     vert_speed = 1.5

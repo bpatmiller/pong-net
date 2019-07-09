@@ -2,6 +2,10 @@ import sys
 import time
 import socket
 import simplejson as json
+import settings
+import select
+
+paddles = {}
 
 
 def getHost():
@@ -16,6 +20,8 @@ def getHost():
 
 class PongServer:
     def __init__(self, host, port):
+        self.inputs = []
+        self.channel = {}
         # AF_INET corresponds to IPV4 host:port addressing
         # SOCK_STREAM corresponds to sending data via TCP packets
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -33,36 +39,49 @@ class PongServer:
         self.port = port
         self.server.bind((host, port))
         self.server.listen(0)
-        # create
-        self.inputs = []
-        self.channel = {}
 
     def loop(self):
         self.inputs.append(self.server)
         while True:
-            time.sleep(0.016)
+            time.sleep(settings.DELAY)
+            inp, outp, exceptr = select.select(self.inputs, [], [])
+            for self.i in inp:
+                if self.i == self.server:
+                    self.accept()
+                    break
+                else:
+                    self.data = self.i.recv(settings.BUFFER_SIZE)
+                if len(self.data) == 0:
+                    self.close()
+                else:
+                    self.receive()
 
     def accept(self):
-        pass
+        csock, caddr = self.server.accept()
+        paddles[caddr[1]] = {}
+        self.inputs.append(csock)
+        print("client at", caddr, "connected")
 
     def close(self):
-        pass
+        caddr = self.i.getpeername()
+        del(paddles[caddr[1]])
+        self.inputs.remove(self.i)
+        print("client at", caddr, "disconnected")
 
     def receive(self):
-        pass
+        pid = self.i.getpeername()[1]
+        paddles[pid] = json.loads(self.data)
+        self.i.send(json.dumps(paddles).encode())
 
 
 if __name__ == '__main__':
-        # load config
-    with open('settings.json') as sj:
-        config = json.load(sj)
-    host = config['SERVER_IP']
-    port = config['SERVER_PORT']
+    host = settings.SERVER_IP
+    port = settings.SERVER_PORT
     # create server
     server = PongServer(host, port)
-    # listen
     print(":: server initialized [" +
           server.host + ":" + str(server.port) + "]")
+    # listen
     try:
         server.loop()
     except KeyboardInterrupt:
