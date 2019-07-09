@@ -1,5 +1,6 @@
 import pyglet
 import game
+import settings
 
 class GameWindow(pyglet.window.Window):
     game = None
@@ -12,12 +13,10 @@ class GameWindow(pyglet.window.Window):
         self.push_handlers(self.keys)
     
     def parse_input(self):
-        if self.keys[pyglet.window.key.UP]: #and self.game.paddle.y < height:
-            print("move up")
-            self.game.my_paddle.move(0, 1)
-        if self.keys[pyglet.window.key.DOWN] and self.game.paddle.y > 0:
-            print("move down")
-            self.game.my_paddle.move(0, -1)
+        if self.keys[pyglet.window.key.UP] and self.game.my_paddle.top_bounds < settings.WINDOW_HEIGHT:
+            self.game.my_paddle.move(0, 5)
+        if self.keys[pyglet.window.key.DOWN] and self.game.my_paddle.y > 0:
+            self.game.my_paddle.move(0, -5)
 
     def on_draw(self):
         self.clear()
