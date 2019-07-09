@@ -67,7 +67,7 @@ class Game(pyglet.window.Window):
             '',
             font_size=12,
             x=settings.WINDOW_WIDTH / 2,
-            y=settings.WINDOW_WIDTH / 2,
+            y=settings.WINDOW_HEIGHT / 2,
             anchor_x='center',
             anchor_y='center')
         self.ball = Ball(pyglet.resource.image(settings.BALL_IMG))
@@ -84,16 +84,18 @@ class Game(pyglet.window.Window):
             self.master_client = True
             self.my_paddle = self.paddle_left
             self.enem_paddle = self.paddle_right
-            self.score.text = 'master'
+            self.score.text = '%i - master - %i' % (self.paddle_left.score, self.paddle_right.score)
         else:
             self.my_paddle = self.paddle_right
             self.enem_paddle = self.paddle_left
-            self.score.text = 'slave'
+            self.score.text = '%i - slave - %i' % (self.paddle_left.score, self.paddle_right.score)
 
     def update_server(self):
         data = {
             "ball": {"x": self.ball.x, "y": self.ball.y, },
-            "paddle": {"x": self.my_paddle.x, "y": self.my_paddle.y, }}
+            "paddle": {"x": self.my_paddle.x, "y": self.my_paddle.y, },
+            "score": {"left": self.paddle_left.score, "right": self.paddle_right.score, }
+        }
         self.connection.send(json.dumps(data).encode())
         return json.loads(self.connection.recv(2000))
 
@@ -105,6 +107,8 @@ class Game(pyglet.window.Window):
                     if not self.master_client:
                         self.ball.x = data[pid]['ball']['x']
                         self.ball.y = data[pid]['ball']['y']
+                        self.paddle_left.score = data[pid]["score"]["left"]
+                        self.paddle_right.score = data[pid]["score"]["right"]
             except BaseException:
                 pass
 
