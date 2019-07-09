@@ -25,14 +25,14 @@ class Sprite(pyglet.sprite.Sprite):
     def top_bounds(self):
         return self.y + self.height
 
-    def move(self, x, y)
+    def move(self, x, y):
         self.set_position(self.x + x, self.y + y)
 
     def check_collision(self, candidates):
         for sprite in candidates:
             if (self.bottom_bounds <= sprite.top_bounds and self.top_bounds>=sprite.bottom_bounds and self.right_bounds>=sprite.left_bounds and self.left_bounds<=self.right_bounds):
                 return sprite
-                
+
     def check_oob(self, window_height):
         if self.top_bounds > window_height or self.bottom_bounds < 0:
             return True

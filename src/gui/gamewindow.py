@@ -1,22 +1,24 @@
 import pyglet
+import gui.game as game
 
 class GameWindow(pyglet.window.Window):
-    width = 640
-    height = 480
-
     def __init__(self, *args, **kwargs):
-        pyglet.window.Window
+        pyglet.window.Window.__init__(self, *args, **kwargs)
         self.game = game.Game(multi=True)
         self.keys = pyglet.window.key.KeyStateHandler()
-        self.input_handler(self.keys)
+        self.push_handlers(self.keys)
     
     def parse_input(self):
         if self.keys[pyglet.window.key.UP] and self.game.paddle.y < height:
-            self.game.my_paddle.move(1)
+            self.game.my_paddle.move(0, 1)
         if self.keys[pyglet.window.key.DOWN] and self.game.paddle.y > 0:
-            self.game.my_paddle.move(-1)
+            self.game.my_paddle.move(0, -1)
 
     def draw(self):
         self.clear()
         self.parse_input()
         self.game.draw()
+        self.game.ball.draw()
+        self.game.score.draw()
+        self.game.paddle_left.draw()
+        self.game.paddle_right.draw()
