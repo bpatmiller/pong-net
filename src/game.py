@@ -84,11 +84,11 @@ class Game(pyglet.window.Window):
             self.master_client = True
             self.my_paddle = self.paddle_left
             self.enem_paddle = self.paddle_right
-            self.score.text = 'master: ' + str(self.paddle_left.score) + " || slave: " + str(self.paddle_right.score)
+            self.score.text = 'master'
         else:
             self.my_paddle = self.paddle_right
             self.enem_paddle = self.paddle_left
-            self.score.text = 'slave' + str(self.paddle_right.score) + " || master: "+ str(self.paddle_left.score)
+            self.score.text = 'slave'
 
     def update_server(self):
         data = {
