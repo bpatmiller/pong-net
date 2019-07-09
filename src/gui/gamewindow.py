@@ -12,11 +12,9 @@ class GameWindow(pyglet.window.Window):
         self.push_handlers(self.keys)
     
     def parse_input(self):
-        if self.keys[pyglet.window.key.UP]: #and self.game.paddle.y < height:
-            print("move up")
+        if self.keys[pyglet.window.key.UP]: and self.game.paddle.y < height:
             self.game.my_paddle.move(0, 1)
         if self.keys[pyglet.window.key.DOWN] and self.game.paddle.y > 0:
-            print("move down")
             self.game.my_paddle.move(0, -1)
 
     def on_draw(self):

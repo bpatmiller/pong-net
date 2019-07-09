@@ -7,4 +7,3 @@ if __name__ == "__main__":
         width=settings.WINDOW_WIDTH,
         height=settings.WINDOW_HEIGHT)
     pyglet.app.run()
-    print("end")

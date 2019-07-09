@@ -86,6 +86,7 @@ class Game(pyglet.window.Window):
             self.enem_paddle = self.paddle_right
             self.score.text = '%i - master - %i' % (self.paddle_left.score, self.paddle_right.score)
         else:
+            self.master_client = False
             self.my_paddle = self.paddle_right
             self.enem_paddle = self.paddle_left
             self.score.text = '%i - slave - %i' % (self.paddle_left.score, self.paddle_right.score)
