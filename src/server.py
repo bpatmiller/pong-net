@@ -61,7 +61,8 @@ if __name__ == '__main__':
     # create server
     server = PongServer(host, port)
     # listen
-    print(":: server initialized [" + server.host + ":" + str(server.port) + "]")
+    print(":: server initialized [" +
+          server.host + ":" + str(server.port) + "]")
     try:
         server.loop()
     except KeyboardInterrupt:
