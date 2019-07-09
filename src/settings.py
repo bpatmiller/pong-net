@@ -1,4 +1,4 @@
-SERVER_IP = "0.0.0.0"
+SERVER_IP = "localhost"
 SERVER_PORT = 50090
 
 WINDOW_WIDTH = 640

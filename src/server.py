@@ -75,8 +75,8 @@ class PongServer:
 
 
 if __name__ == '__main__':
-    host = settings.SERVER_IP
-    port = settings.SERVER_PORT
+    host = settings.SERVER_IP if len(sys.argv) < 1 else sys.argv[1]
+    port = settings.SERVER_PORT if len(sys.argv) < 2 else sys.argv[2]
     # create server
     server = PongServer(host, port)
     print(":: server initialized [" +
